@@ -42,6 +42,7 @@ const deleteMovie = (movieId) => {
   listRoot.children[movieIndex].remove();
   // listRoot.removeChild(listRoot.children[movieIndex]);
   cancelMovieDeletion();
+  updateUI();
 };
 
 
