@@ -3,7 +3,9 @@ const startAddMovieButton = document.querySelector('header button');
 const backdrop = document.getElementById('backdrop');
 const cancelAddMovieButton = addMovieModal.querySelector('.btn--passive');
 const confirmAddMovieButton = cancelAddMovieButton.nextElementSibling;
-const userInput = addMovieModal.querySelectorAll('input');
+const userInputs = addMovieModal.querySelectorAll('input');
+
+const movies = [];
 
 const toggleBackdrop = () => {
   backdrop.classList.toggle('visible');
@@ -14,26 +16,41 @@ const toggleMovieModal = () => { //function () {}
   toggleBackdrop();
 };
 
+const clearMovieInputs = () => {
+  for (const userInput of userInputs) {
+    userInput.value = '';
+  }
+};
+
 const cancelAddMovieHandler = () => {
   toggleMovieModal();
+  clearMovieInputs();
 }
 
 const addMovieHandler = () => {
-  const titleValue = userInput[0].value;
-  const imgUrlValue = userInput[1].value;
-  const ratingValue = userInput[2].value;
+  const titleValue = userInputs[0].value;
+  const imageUrlValue = userInputs[1].value;
+  const ratingValue = userInputs[2].value;
 
   if (
-    titleValue.trim() === '' || 
-    imgUrlValue.trim() === '' || 
-    ratingValue.trim() === '' || 
+    titleValue.trim() === '' ||
+    imageUrlValue.trim() === '' ||
+    ratingValue.trim() === '' ||
     +ratingValue < 1 ||
     +ratingValue > 5
   ) {
-      alert('Please enter valid values (rating between 1 & 5)');
-      return;
+    alert('Please enter valid values (rating between 1 and 5).');
+    return;
   }
-
+  const newMovie = {
+    title: titleValue,
+    image: imageUrlValue,
+    rating: ratingValue
+  };
+  movies.push(newMovie);
+  console.log(movies);
+  toggleMovieModal();
+  clearMovieInputs();
 };
 
 const backdropClickHandler = () => {
